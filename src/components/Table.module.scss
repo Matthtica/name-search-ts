@@ -1,3 +1,7 @@
+$primary: #7AA2F7;
+$secondary: #3B4261;
+$bg: #24283B;
+
 th {
     cursor: pointer;
 }
@@ -9,13 +13,18 @@ td, th {
 
 
 th:hover {
-    background-color: #7AA2F7;
-    color: #24283B;
+    background-color: $primary;
+    color: $bg;
 }
 
 table {
     border-collapse: collapse;
     border: solid #7AA2F7;
+}
+
+.select {
+    background-color: $primary;
+    color: $bg;
 }
 
 .tab {
@@ -30,5 +39,12 @@ table {
     button:hover {
         background-color: #7AA2F7;
         color: #24283B;
+    }
+}
+
+.searchBar {
+    display: flex;
+    input {
+        padding: 0.4em;
     }
 }

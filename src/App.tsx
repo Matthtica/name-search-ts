@@ -5,7 +5,7 @@ function App() {
     return (
         <div className={style.cont}>
             <div className={style.box}>
-                <Table/>
+                <Table />
             </div>
         </div>
     );

@@ -3,10 +3,14 @@ import { useState } from 'react'
 import style from './Table.module.scss'
 
 export default function Table() {
-    const [data, setData] = useState<any[]>([])
-    const [heads, setHeads] = useState<string[]>([])
     const [sheetNames, setSheetNames] = useState<string[]>([])
     const [sheets, setSheets] = useState<{[sheet: string]: xlsx.WorkSheet}>({})
+    const [base, setBase] = useState<any[]>([])
+    const [selectedCol, setSelectedCol] = useState<string>(" ")
+    const [showMenu, setShowMenu] = useState<boolean>(false)
+
+    const [data, setData] = useState<any[]>([])
+    const [heads, setHeads] = useState<string[]>([])
 
     const handleDropAsync = async (e: any) => {
         const file = e.target.files[0];
@@ -14,20 +18,25 @@ export default function Table() {
         const wb = xlsx.read(data);
         setSheetNames(wb.SheetNames);
         setSheets(wb.Sheets);
-
-        onSheetChange(sheetNames[0]);
     }
 
     const onSheetChange = (sheetName: string) => {
         const sheet = xlsx.utils.sheet_to_json<any[]>(sheets[sheetName]);
         setHeads(Object.keys(sheet[0]));
+        setBase(sheet);
         setData(sheet);
-        console.log(sheet)
     }
 
     const onSortBy = (colName: string) => {
         const temp = [...data];
         temp.sort((a, b) => (a[colName] > b[colName]) ? 1 : -1);
+        setData(temp);
+        setSelectedCol(colName);
+    }
+
+    const onFilter = (target: string) => {
+        let temp = [...base];
+        temp = temp.filter((a: any) => (a[selectedCol] as string).includes(target));
         setData(temp);
     }
 
@@ -35,22 +44,23 @@ export default function Table() {
         <div className={style.table}>
             <div className={style.tab}>
                 {sheetNames.map((name: string) => <button key={name} onClick={() => {onSheetChange(name)}}>{name}</button>)}
+                <input type="text" placeholder="search here" onChange={(e) => onFilter(e.target.value)}/>
             </div>
             <table>
             <thead>
-                    <tr>
+                    <tr key="header">
                         {
-                            heads.map(key => (<th key={key} onClick={() => onSortBy(key)}>{key}</th>))
+                            heads.map(key => (<th key={key} className={selectedCol == key ? style.select : ""} onClick={() => onSortBy(key)}>{key}</th>))
                         }
                     </tr>
                 </thead>
                 <tbody>
                     {
                         data.map((man: any) => (
-                            <tr key={man[heads[0]]}>
+                            <tr key={man[0]}>
                                 {
                                     heads.map(key => (
-                                        <td key={man[key]}>{man[key]}</td>
+                                        <td key={man[0]+key}>{man[key]}</td>
                                     ))
                                 }
                             </tr>
