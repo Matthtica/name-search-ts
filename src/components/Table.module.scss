@@ -27,18 +27,23 @@ table {
     color: $bg;
 }
 
+.cont {
+    width: 100vw;
+    overflow: scroll;
+}
+
 .tab {
     display: flex;
     button {
-        background-color: #3B4261;
-        color: #7AA2F7;
+        background-color: $secondary;
+        color: $primary;
         border: none;
         padding: 1em;
         font-weight: bold;
     }
     button:hover {
-        background-color: #7AA2F7;
-        color: #24283B;
+        background-color: $primary;
+        color: $bg;
     }
 }
 
