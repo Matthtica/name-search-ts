@@ -1,30 +1,27 @@
-$primary: #7AA2F7;
-$secondary: #3B4261;
-$bg: #24283B;
 
 th {
     cursor: pointer;
 }
 
 td, th {
-    border: thin solid #3B4261;
+    border: thin solid var(--secondary);
     padding: 5px 10px;
 }
 
 
 th:hover {
-    background-color: $primary;
-    color: $bg;
+    background-color: var(--primary);
+    color: var(--bg);
 }
 
 table {
     border-collapse: collapse;
-    border: solid #7AA2F7;
+    border: solid var(--primary);
 }
 
 .select {
-    background-color: $primary;
-    color: $bg;
+    background-color: var(--primary);
+    color: var(--secondary);
 }
 
 .cont {
@@ -35,15 +32,15 @@ table {
 .tab {
     display: flex;
     button {
-        background-color: $secondary;
-        color: $primary;
+        background-color: var(--secondary);
+        color: var(--primary);
         border: none;
         padding: 1em;
         font-weight: bold;
     }
     button:hover {
-        background-color: $primary;
-        color: $bg;
+        background-color: var(--primary);
+        color: var(--bg);
     }
 }
 

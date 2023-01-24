@@ -35,7 +35,7 @@ export default function Table() {
 
     const onFilter = (target: string) => {
         let temp = [...base];
-        temp = temp.filter((a: any) => (a[selectedCol] as string).includes(target));
+        temp = temp.filter((a: any) => (a[selectedCol] as string).toLowerCase().includes(target.toLowerCase()));
         setData(temp);
     }
 
