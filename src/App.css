@@ -1,9 +1,0 @@
-td, th {
-    border: thin solid black;
-    padding: 5px 10px;
-}
-
-table {
-    border-collapse: collapse;
-    border: solid black;
-}

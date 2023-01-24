@@ -1,0 +1,13 @@
+
+.cont {
+    background-color: #24283B;
+    color: #7AA2F7;
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    justify-content: center;
+    overflow: scroll;
+    .box {
+        width: 100%;
+    }
+}

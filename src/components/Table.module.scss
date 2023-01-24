@@ -1,0 +1,34 @@
+th {
+    cursor: pointer;
+}
+
+td, th {
+    border: thin solid #3B4261;
+    padding: 5px 10px;
+}
+
+
+th:hover {
+    background-color: #7AA2F7;
+    color: #24283B;
+}
+
+table {
+    border-collapse: collapse;
+    border: solid #7AA2F7;
+}
+
+.tab {
+    display: flex;
+    button {
+        background-color: #3B4261;
+        color: #7AA2F7;
+        border: none;
+        padding: 1em;
+        font-weight: bold;
+    }
+    button:hover {
+        background-color: #7AA2F7;
+        color: #24283B;
+    }
+}
