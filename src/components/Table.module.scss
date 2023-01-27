@@ -1,3 +1,7 @@
+.file[type="file"] {
+    display: none;
+}
+
 th {
     cursor: pointer;
 }
@@ -18,9 +22,9 @@ table {
     border: solid var(--primary);
 }
 
-.select {
+.selectedCol, .selectedSheet {
     background-color: var(--primary);
-    color: var(--secondary);
+    color: var(--bg);
 }
 
 .cont {
@@ -28,16 +32,27 @@ table {
     overflow: scroll;
 }
 
+.centeredFile {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .tab {
     display: flex;
-    button {
+    button, label {
         background-color: var(--secondary);
         color: var(--primary);
         border: none;
         padding: 1em;
         font-weight: bold;
+        cursor: pointer;
     }
-    button:hover {
+    label {
+        margin-left: 0.3em;
+    }
+    button:hover, label:hover {
         background-color: var(--primary);
         color: var(--bg);
     }

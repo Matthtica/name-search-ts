@@ -5,8 +5,9 @@ import style from './Table.module.scss'
 export default function Table() {
     const [sheetNames, setSheetNames] = useState<string[]>([])
     const [sheets, setSheets] = useState<{ [sheet: string]: xlsx.WorkSheet }>({})
-    const [base, setBase] = useState<any[]>([])
+    const [baseData, setBaseData] = useState<any[]>([])
     const [selectedCol, setSelectedCol] = useState<string>(" ")
+    const [selectedSheet, setSelectedSheet] = useState<string>("")
 
     const [data, setData] = useState<any[]>([])
     const [heads, setHeads] = useState<string[]>([])
@@ -23,11 +24,12 @@ export default function Table() {
         console.log(selectedCol);
     }, [selectedCol])
 
-    const onSheetChange = (sheetName: string) => {
+    const onSheetChange = async (sheetName: string) => {
         const sheet = xlsx.utils.sheet_to_json<any[]>(sheets[sheetName]);
         setHeads(Object.keys(sheet[0]));
-        setBase(sheet);
+        setBaseData(sheet);
         setData(sheet);
+        setSelectedSheet(sheetName);
     }
 
     const onSortBy = async (colName: string) => {
@@ -38,7 +40,7 @@ export default function Table() {
     }
 
     const onFilter = (target: string) => {
-        let temp = [...base];
+        let temp = [...baseData];
         temp = temp.filter((a: any) => a[selectedCol] && a[selectedCol].toString().toLowerCase().includes(target.toLowerCase()));
         setData(temp);
     }
@@ -46,17 +48,18 @@ export default function Table() {
     return (
         <div className={style.table}>
             <div className={style.tab}>
-                {sheetNames.map((name: string) => <button key={name} onClick={() => { onSheetChange(name) }}>{name}</button>)}
-                <input type="file" id="inf" multiple={false} onChange={handleDropAsync} />
+                {sheetNames.map((name: string) => <button className={selectedSheet === name ? style.selectedSheet : ""} key={name} onClick={() => onSheetChange(name)}>{name}</button>)}
+                <input className={style.file} type="file" id="inf" multiple={false} onChange={handleDropAsync} />
+                <label className={baseData.length === 0 ? style.centeredFile : ""}htmlFor="inf">Choose an excel file</label>
             </div>
-            <input className={style.search} type="text" placeholder="search here" onChange={(e) => onFilter(e.target.value)} />
+            {baseData.length > 0 && <input className={style.search} type="text" placeholder="search here" onChange={(e) => onFilter(e.target.value)} />}
             {data.length > 0 &&
                 <div className={style.cont}>
                     <table>
                         <thead>
                             <tr key="header">
                                 {
-                                    heads.map(key => (<th key={key} className={selectedCol === key ? style.select : ""} onClick={() => onSortBy(key)}>{key}</th>))
+                                    heads.map(key => (<th key={key} className={selectedCol === key ? style.selectedCol : ""} onClick={() => onSortBy(key)}>{key}</th>))
                                 }
                             </tr>
                         </thead>
