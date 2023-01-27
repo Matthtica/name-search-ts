@@ -39,7 +39,7 @@ export default function Table() {
         setSelectedCol(colName);
     }
 
-    const onFilter = (target: string) => {
+    const onFilter = async (target: string) => {
         let temp = [...baseData];
         temp = temp.filter((a: any) => a[selectedCol] && a[selectedCol].toString().toLowerCase().includes(target.toLowerCase()));
         setData(temp);
@@ -50,7 +50,7 @@ export default function Table() {
             <div className={style.tab}>
                 {sheetNames.map((name: string) => <button className={selectedSheet === name ? style.selectedSheet : ""} key={name} onClick={() => onSheetChange(name)}>{name}</button>)}
                 <input className={style.file} type="file" id="inf" multiple={false} onChange={handleDropAsync} />
-                <label className={baseData.length === 0 ? style.centeredFile : ""}htmlFor="inf">Choose an excel file</label>
+                <label className={sheetNames.length === 0 ? style.centeredFile : ""}htmlFor="inf">Choose an excel file</label>
             </div>
             {baseData.length > 0 && <input className={style.search} type="text" placeholder="search here" onChange={(e) => onFilter(e.target.value)} />}
             {data.length > 0 &&
