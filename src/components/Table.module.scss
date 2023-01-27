@@ -1,4 +1,3 @@
-
 th {
     cursor: pointer;
 }
@@ -44,9 +43,7 @@ table {
     }
 }
 
-.searchBar {
-    display: flex;
-    input {
-        padding: 0.4em;
-    }
+.search {
+    margin: 0.5em;
+    padding: 0.5em;
 }

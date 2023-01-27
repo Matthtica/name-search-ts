@@ -1,5 +1,5 @@
 import * as xlsx from 'xlsx'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import style from './Table.module.scss'
 
 export default function Table() {
@@ -19,6 +19,10 @@ export default function Table() {
         setSheets(wb.Sheets);
     }
 
+    useEffect(() => {
+        console.log(selectedCol);
+    }, [selectedCol])
+
     const onSheetChange = (sheetName: string) => {
         const sheet = xlsx.utils.sheet_to_json<any[]>(sheets[sheetName]);
         setHeads(Object.keys(sheet[0]));
@@ -26,7 +30,7 @@ export default function Table() {
         setData(sheet);
     }
 
-    const onSortBy = (colName: string) => {
+    const onSortBy = async (colName: string) => {
         const temp = [...data];
         temp.sort((a, b) => (a[colName] > b[colName]) ? 1 : -1);
         setData(temp);
@@ -35,7 +39,7 @@ export default function Table() {
 
     const onFilter = (target: string) => {
         let temp = [...base];
-        temp = temp.filter((a: any) => (a[selectedCol] as string).toLowerCase().includes(target.toLowerCase()));
+        temp = temp.filter((a: any) => a[selectedCol] && a[selectedCol].toString().toLowerCase().includes(target.toLowerCase()));
         setData(temp);
     }
 
@@ -43,9 +47,9 @@ export default function Table() {
         <div className={style.table}>
             <div className={style.tab}>
                 {sheetNames.map((name: string) => <button key={name} onClick={() => { onSheetChange(name) }}>{name}</button>)}
-                <input type="text" placeholder="search here" onChange={(e) => onFilter(e.target.value)} />
                 <input type="file" id="inf" multiple={false} onChange={handleDropAsync} />
             </div>
+            <input className={style.search} type="text" placeholder="search here" onChange={(e) => onFilter(e.target.value)} />
             {data.length > 0 &&
                 <div className={style.cont}>
                     <table>
