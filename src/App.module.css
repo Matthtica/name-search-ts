@@ -1,0 +1,23 @@
+:root {
+    /* evergreen #A7C080 #46393B #2D353B
+     * tokyonight #7AA2F7 #3B4261 #24283B
+     * gruvbox #A89984 #FABD2F #1D2021
+     */
+    --primary: #A89984;
+    --secondary: #504945;
+    --bg: #1D2021;
+}
+
+.cont {
+    background-color: var(--bg);
+    color: var(--primary);
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    justify-content: center;
+    overflow: scroll;
+}
+
+.box {
+    width: 100%;
+}
