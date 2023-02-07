@@ -14,8 +14,22 @@
     min-height: 100vh;
     width: 100%;
     justify-content: center;
+    align-items: center;
     overflow: scroll;
     .box {
-        width: 100%;
+        height: auto;
     }
+}
+
+.signin {
+    border: none;
+    padding: 1em;
+    background-color: var(--secondary);
+    color: var(--primary);
+    margin: 1em;
+}
+
+.signin:hover {
+    background-color: var(--primary);
+    color: var(--bg);
 }

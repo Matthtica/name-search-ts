@@ -1,6 +1,7 @@
 {
   "hosting": {
-    "public": "build",
+    "site": "excel-search-22471",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
